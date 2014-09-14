@@ -54,6 +54,18 @@ class VoteManager(models.Manager):
             'num_votes': int(result[1]),
         }
 
+    def get_upvotes(self, obj):
+        ctype = ContentType.objects.get_for_model(obj)
+        return self.filter(
+            object_id=obj._get_pk_val(), content_type=ctype
+        ).count()
+
+    def get_downvotes(self, obj):
+        ctype = ContentType.objects.get_for_model(obj)
+        return self.filter(
+            object_id=obj._get_pk_val(), content_type=ctype
+        ).count()
+
     def get_scores_in_bulk(self, objects):
         """
         Get a dictionary mapping object ids to total score and number
