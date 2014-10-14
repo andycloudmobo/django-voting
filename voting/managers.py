@@ -26,7 +26,7 @@ if supports_aggregates:
 
         def add_to_query(self, query, alias, col, source, is_summary):
             super(CoalesceWrapper, self).__init__(col, source, is_summary, **self.extra)
-            query.aggregate_select[alias] = self
+            query.aggregates[alias] = self
 
     class CoalesceSum(CoalesceWrapper):
         sql_function = 'SUM'
